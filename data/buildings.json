@@ -1,0 +1,417 @@
+{
+ "_nota": "Trascritti dalle tessere del mod. Le voci con 'verify' hanno l'immagine mancante o un simbolo non chiaro.",
+ "buildings": [
+  {
+   "id": "colonial_house",
+   "name": "Casa coloniale",
+   "level": 0,
+   "count": 0,
+   "icons": {},
+   "actions": [
+    "occupy"
+   ],
+   "start": true,
+   "image": "res://assets/buildings/colonial_house.png"
+  },
+  {
+   "id": "merchant_dock",
+   "name": "Molo mercantile",
+   "level": 0,
+   "count": 0,
+   "icons": {
+    "finance": 1
+   },
+   "actions": [
+    "ship"
+   ],
+   "start": true,
+   "image": "res://assets/buildings/merchant_dock.png"
+  },
+  {
+   "id": "workshop",
+   "name": "Laboratorio",
+   "level": 1,
+   "count": 5,
+   "icons": {
+    "industry": 2
+   },
+   "actions": [],
+   "image": "res://assets/buildings/workshop.png"
+  },
+  {
+   "id": "market",
+   "name": "Mercato",
+   "level": 1,
+   "count": 5,
+   "icons": {},
+   "actions": [
+    "draw"
+   ],
+   "verify": "simbolo scala in basso a sinistra",
+   "image": "res://assets/buildings/market.png"
+  },
+  {
+   "id": "shipyard",
+   "name": "Cantiere navale",
+   "level": 1,
+   "count": 5,
+   "icons": {
+    "culture": 1
+   },
+   "actions": [
+    "ship"
+   ],
+   "image": "res://assets/buildings/shipyard.png"
+  },
+  {
+   "id": "bank",
+   "name": "Banca",
+   "level": 2,
+   "count": 4,
+   "icons": {
+    "finance": 2
+   },
+   "actions": [],
+   "image": "res://assets/buildings/bank.png"
+  },
+  {
+   "id": "barracks",
+   "name": "Caserma",
+   "level": 2,
+   "count": 4,
+   "icons": {},
+   "actions": [
+    "attack"
+   ],
+   "image": "res://assets/buildings/barracks.png"
+  },
+  {
+   "id": "guild_hall",
+   "name": "Corporazione",
+   "level": 2,
+   "count": 4,
+   "icons": {},
+   "actions": [
+    "draw|ship"
+   ],
+   "image": "res://assets/buildings/guild_hall.png"
+  },
+  {
+   "id": "theatre",
+   "name": "Teatro",
+   "level": 3,
+   "count": 3,
+   "icons": {
+    "culture": 2
+   },
+   "actions": [],
+   "image": "res://assets/buildings/theatre.png"
+  },
+  {
+   "id": "fortress",
+   "name": "Fortezza",
+   "level": 3,
+   "count": 3,
+   "icons": {
+    "influence": 1
+   },
+   "actions": [
+    "occupy|attack"
+   ],
+   "image": "res://assets/buildings/fortress.png"
+  },
+  {
+   "id": "docks",
+   "name": "Moli",
+   "level": 3,
+   "count": 3,
+   "icons": {},
+   "actions": [
+    "ship",
+    "occupy"
+   ],
+   "image": "res://assets/buildings/docks.png"
+  },
+  {
+   "id": "university",
+   "name": "Università",
+   "level": 4,
+   "count": 2,
+   "icons": {
+    "glory": 3
+   },
+   "actions": [],
+   "image": "res://assets/buildings/university.png"
+  },
+  {
+   "id": "trade_office",
+   "name": "Ufficio commerciale",
+   "level": 4,
+   "count": 2,
+   "icons": {},
+   "actions": [
+    "draw",
+    "draw"
+   ],
+   "image": "res://assets/buildings/trade_office.png"
+  },
+  {
+   "id": "cartographer",
+   "name": "Cartografo",
+   "level": 4,
+   "count": 2,
+   "icons": {},
+   "actions": [
+    "ship",
+    "ship"
+   ],
+   "verify": "simbolo scala in basso a sinistra",
+   "image": "res://assets/buildings/cartographer.png"
+  },
+  {
+   "id": "museum",
+   "name": "Museo",
+   "level": 5,
+   "count": 1,
+   "icons": {
+    "culture": 2
+   },
+   "actions": [
+    "payment"
+   ],
+   "image": "res://assets/buildings/museum.png"
+  },
+  {
+   "id": "palace",
+   "name": "Palazzo",
+   "level": 5,
+   "count": 1,
+   "icons": {
+    "industry": 1,
+    "culture": 1,
+    "finance": 1,
+    "influence": 1
+   },
+   "actions": [],
+   "image": "res://assets/buildings/palace.png"
+  },
+  {
+   "id": "treasury",
+   "name": "Tesoreria",
+   "level": 5,
+   "count": 1,
+   "icons": {
+    "glory": 2
+   },
+   "actions": [
+    "payment",
+    "payment"
+   ],
+   "image": "res://assets/buildings/treasury.png"
+  },
+  {
+   "id": "city_hall",
+   "name": "Municipio",
+   "level": 5,
+   "count": 1,
+   "icons": {},
+   "actions": [
+    "occupy|draw"
+   ],
+   "special": "city_hall",
+   "image": "res://assets/buildings/city_hall.png"
+  },
+  {
+   "id": "parliament",
+   "name": "Parlamento",
+   "level": 5,
+   "count": 1,
+   "icons": {
+    "influence": 2
+   },
+   "actions": [
+    "payment"
+   ],
+   "image": "res://assets/buildings/parliament.png"
+  },
+  {
+   "id": "exchange",
+   "name": "Borsa",
+   "level": 5,
+   "count": 1,
+   "icons": {
+    "finance": 2
+   },
+   "actions": [
+    "payment"
+   ],
+   "verify": "immagine assente: azione ipotizzata"
+  },
+  {
+   "id": "memorial",
+   "name": "Memoriale",
+   "level": 5,
+   "count": 1,
+   "icons": {},
+   "actions": [
+    "ship|attack"
+   ],
+   "special": "memorial",
+   "verify": "immagine assente: azione ipotizzata dai conteggi dello script"
+  },
+  {
+   "id": "charter_north_america",
+   "name": "Compagnia privilegiata Nord America",
+   "level": 0,
+   "count": 0,
+   "icons": {
+    "finance": 1,
+    "influence": 1
+   },
+   "actions": [
+    "ship",
+    "draw"
+   ],
+   "charter": "north_america",
+   "presence": 6,
+   "no_pay": true,
+   "pos_a": [
+    -14.19,
+    14.89
+   ],
+   "pos_b": [
+    -14.19,
+    14.89
+   ],
+   "image": "res://assets/buildings/charter_north_america.png"
+  },
+  {
+   "id": "charter_india",
+   "name": "Compagnia privilegiata India",
+   "level": 0,
+   "count": 0,
+   "icons": {
+    "industry": 1,
+    "influence": 1
+   },
+   "actions": [
+    "attack",
+    "occupy"
+   ],
+   "charter": "india",
+   "presence": 6,
+   "no_pay": true,
+   "pos_a": [
+    -1.07,
+    14.88
+   ],
+   "pos_b": [
+    -1.07,
+    14.88
+   ],
+   "image": "res://assets/buildings/charter_india.png"
+  },
+  {
+   "id": "charter_far_east",
+   "name": "Compagnia privilegiata Estremo Oriente",
+   "level": 0,
+   "count": 0,
+   "icons": {
+    "glory": 2
+   },
+   "actions": [
+    "draw",
+    "attack"
+   ],
+   "charter": "far_east",
+   "presence": 6,
+   "no_pay": true,
+   "pos_a": [
+    11.55,
+    14.86
+   ],
+   "pos_b": [
+    11.3,
+    14.86
+   ],
+   "image": "res://assets/buildings/charter_far_east.png"
+  },
+  {
+   "id": "charter_africa",
+   "name": "Compagnia privilegiata Africa",
+   "level": 0,
+   "count": 0,
+   "icons": {
+    "culture": 1,
+    "influence": 1
+   },
+   "actions": [
+    "ship",
+    "payment"
+   ],
+   "charter": "africa",
+   "presence": 6,
+   "no_pay": true,
+   "pos_a": [
+    17.37,
+    -15.89
+   ],
+   "pos_b": [
+    17.37,
+    -15.89
+   ],
+   "image": "res://assets/buildings/charter_africa.png"
+  },
+  {
+   "id": "charter_south_america",
+   "name": "Compagnia privilegiata Sud America",
+   "level": 0,
+   "count": 0,
+   "icons": {
+    "industry": 2
+   },
+   "actions": [
+    "draw",
+    "payment"
+   ],
+   "charter": "south_america",
+   "presence": 6,
+   "no_pay": true,
+   "pos_a": [
+    -17.37,
+    -17.33
+   ],
+   "pos_b": [
+    -17.37,
+    -17.33
+   ],
+   "image": "res://assets/buildings/charter_south_america.png"
+  },
+  {
+   "id": "charter_caribbean",
+   "name": "Compagnia privilegiata Caraibi",
+   "level": 0,
+   "count": 0,
+   "icons": {
+    "culture": 1,
+    "finance": 1
+   },
+   "actions": [
+    "ship",
+    "attack"
+   ],
+   "charter": "caribbean",
+   "presence": 6,
+   "no_pay": true,
+   "pos_a": [
+    -17.36,
+    -6.56
+   ],
+   "pos_b": [
+    -17.36,
+    -6.56
+   ],
+   "image": "res://assets/buildings/charter_caribbean.png"
+  }
+ ]
+}

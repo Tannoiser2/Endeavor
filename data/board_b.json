@@ -1,0 +1,985 @@
+{
+ "_nota": "Generato da tools/estrai_tts.py dal mod TTS 1709680050. Coordinate x,z del tavolo TTS.",
+ "side": "B",
+ "players": "4-5",
+ "bounds": [
+  -16.09,
+  -19.1,
+  16.09,
+  13.1
+ ],
+ "image": "res://assets/board_b.jpg",
+ "regions": [
+  {
+   "id": "north_america",
+   "name": "Nord America",
+   "color": "#4f8a7c",
+   "start_open": false,
+   "sea": [
+    -8.33,
+    3.01
+   ],
+   "deck_pos": [
+    -10.97,
+    11.35
+   ],
+   "gov_pos": [
+    -10.92,
+    14.39
+   ]
+  },
+  {
+   "id": "india",
+   "name": "India",
+   "color": "#8a6aa8",
+   "start_open": false,
+   "sea": [
+    2.89,
+    5.11
+   ],
+   "deck_pos": [
+    -4.37,
+    11.35
+   ],
+   "gov_pos": [
+    -4.33,
+    14.39
+   ]
+  },
+  {
+   "id": "far_east",
+   "name": "Estremo Oriente",
+   "color": "#c98a2e",
+   "start_open": false,
+   "sea": [
+    14.54,
+    3.91
+   ],
+   "deck_pos": [
+    8.05,
+    11.32
+   ],
+   "gov_pos": [
+    8.02,
+    14.4
+   ]
+  },
+  {
+   "id": "africa",
+   "name": "Africa",
+   "color": "#8a7a5a",
+   "start_open": false,
+   "sea": [
+    12.42,
+    -15.88
+   ],
+   "deck_pos": [
+    14.26,
+    -12.13
+   ],
+   "gov_pos": [
+    17.32,
+    -12.15
+   ]
+  },
+  {
+   "id": "south_america",
+   "name": "Sud America",
+   "color": "#6f8a4a",
+   "start_open": false,
+   "sea": [
+    -10.44,
+    -14.63
+   ],
+   "deck_pos": [
+    -13.77,
+    -17.35
+   ],
+   "gov_pos": [
+    -13.79,
+    -20.41
+   ]
+  },
+  {
+   "id": "caribbean",
+   "name": "Caraibi",
+   "color": "#b0703c",
+   "start_open": false,
+   "sea": [
+    -6.38,
+    -2.89
+   ],
+   "deck_pos": [
+    -14.29,
+    -10.23
+   ],
+   "gov_pos": [
+    -17.33,
+    -10.25
+   ]
+  },
+  {
+   "id": "europe",
+   "name": "Europa e Mediterraneo",
+   "color": "#3f6f8f",
+   "start_open": true,
+   "sea": null,
+   "deck_pos": [
+    14.27,
+    -1.94
+   ],
+   "gov_pos": null
+  }
+ ],
+ "nodes": [
+  {
+   "id": "na_1",
+   "region": "north_america",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -12.35,
+    4.82
+   ]
+  },
+  {
+   "id": "na_2",
+   "region": "north_america",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -9.98,
+    6.91
+   ]
+  },
+  {
+   "id": "na_3",
+   "region": "north_america",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -8.59,
+    9.24
+   ]
+  },
+  {
+   "id": "na_4",
+   "region": "north_america",
+   "kind": "city",
+   "glory": 2,
+   "pos": [
+    -13.87,
+    2.21
+   ]
+  },
+  {
+   "id": "in_1",
+   "region": "india",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -3.71,
+    6.67
+   ]
+  },
+  {
+   "id": "in_2",
+   "region": "india",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    2.02,
+    8.95
+   ]
+  },
+  {
+   "id": "in_3",
+   "region": "india",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -0.8,
+    5.51
+   ]
+  },
+  {
+   "id": "in_4",
+   "region": "india",
+   "kind": "city",
+   "glory": 2,
+   "pos": [
+    -1.04,
+    9.92
+   ]
+  },
+  {
+   "id": "fe_1",
+   "region": "far_east",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    8.32,
+    7.36
+   ]
+  },
+  {
+   "id": "fe_2",
+   "region": "far_east",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    8.04,
+    4.2
+   ]
+  },
+  {
+   "id": "fe_3",
+   "region": "far_east",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    11.89,
+    5.17
+   ]
+  },
+  {
+   "id": "fe_4",
+   "region": "far_east",
+   "kind": "city",
+   "glory": 2,
+   "pos": [
+    12.76,
+    9.57
+   ]
+  },
+  {
+   "id": "af_1",
+   "region": "africa",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    4.18,
+    -11.79
+   ]
+  },
+  {
+   "id": "af_2",
+   "region": "africa",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    11.26,
+    -13.01
+   ]
+  },
+  {
+   "id": "af_3",
+   "region": "africa",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    6.34,
+    -16.54
+   ]
+  },
+  {
+   "id": "af_4",
+   "region": "africa",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    9.41,
+    -16.7
+   ]
+  },
+  {
+   "id": "sa_1",
+   "region": "south_america",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -4.28,
+    -13.37
+   ]
+  },
+  {
+   "id": "sa_2",
+   "region": "south_america",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -0.61,
+    -15.12
+   ]
+  },
+  {
+   "id": "sa_3",
+   "region": "south_america",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -0.94,
+    -18.18
+   ]
+  },
+  {
+   "id": "sa_4",
+   "region": "south_america",
+   "kind": "city",
+   "glory": 2,
+   "pos": [
+    -7.68,
+    -15.67
+   ]
+  },
+  {
+   "id": "ca_1",
+   "region": "caribbean",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -9.98,
+    -3.19
+   ]
+  },
+  {
+   "id": "ca_2",
+   "region": "caribbean",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -13.06,
+    -4.57
+   ]
+  },
+  {
+   "id": "ca_3",
+   "region": "caribbean",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -10.94,
+    -7.29
+   ]
+  },
+  {
+   "id": "ca_4",
+   "region": "caribbean",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -7.6,
+    -8.33
+   ]
+  },
+  {
+   "id": "eu_1",
+   "region": "europe",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    -3.44,
+    -0.18
+   ]
+  },
+  {
+   "id": "eu_2",
+   "region": "europe",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    -2.72,
+    -4.69
+   ]
+  },
+  {
+   "id": "eu_3",
+   "region": "europe",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    -2.68,
+    -8.4
+   ]
+  },
+  {
+   "id": "eu_4",
+   "region": "europe",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    3.14,
+    1.89
+   ]
+  },
+  {
+   "id": "eu_5",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    2.86,
+    -0.74
+   ]
+  },
+  {
+   "id": "eu_6",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    1.66,
+    -5.12
+   ]
+  },
+  {
+   "id": "eu_7",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    2.84,
+    -7.64
+   ]
+  },
+  {
+   "id": "eu_8",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    6.82,
+    -0.55
+   ]
+  },
+  {
+   "id": "eu_9",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    4.92,
+    -3.51
+   ]
+  },
+  {
+   "id": "eu_10",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    7.74,
+    -6.12
+   ]
+  },
+  {
+   "id": "eu_11",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    10.82,
+    -1.19
+   ]
+  },
+  {
+   "id": "eu_12",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    10.79,
+    -5.78
+   ]
+  }
+ ],
+ "links": [
+  {
+   "a": "na_1",
+   "b": "na_3",
+   "pos": [
+    -12.25,
+    7.19
+   ],
+   "token": true
+  },
+  {
+   "a": "na_1",
+   "b": "ca_2",
+   "pos": [
+    -10.97,
+    -1.01
+   ],
+   "token": true
+  },
+  {
+   "a": "na_2",
+   "b": "eu_1",
+   "pos": [
+    -5.44,
+    3.22
+   ],
+   "token": true
+  },
+  {
+   "a": "in_2",
+   "b": "in_1",
+   "pos": [
+    -1.36,
+    7.21
+   ],
+   "token": true
+  },
+  {
+   "a": "in_2",
+   "b": "in_3",
+   "pos": [
+    1.16,
+    6.26
+   ],
+   "token": true
+  },
+  {
+   "a": "in_3",
+   "b": "eu_4",
+   "pos": [
+    0.64,
+    2.6
+   ],
+   "token": true
+  },
+  {
+   "a": "fe_1",
+   "b": "fe_3",
+   "pos": [
+    9.9,
+    6.09
+   ],
+   "token": true
+  },
+  {
+   "a": "fe_3",
+   "b": "eu_11",
+   "pos": [
+    10.44,
+    2.11
+   ],
+   "token": true
+  },
+  {
+   "a": "fe_2",
+   "b": "eu_4",
+   "pos": [
+    5.47,
+    2.77
+   ],
+   "token": true
+  },
+  {
+   "a": "af_1",
+   "b": "eu_3",
+   "pos": [
+    1.24,
+    -9.14
+   ],
+   "token": true
+  },
+  {
+   "a": "af_2",
+   "b": "eu_12",
+   "pos": [
+    9.59,
+    -9.33
+   ],
+   "token": true
+  },
+  {
+   "a": "af_2",
+   "b": "af_4",
+   "pos": [
+    10.23,
+    -14.82
+   ],
+   "token": true
+  },
+  {
+   "a": "af_3",
+   "b": "eu_7",
+   "pos": [
+    6.16,
+    -12.11
+   ],
+   "token": true
+  },
+  {
+   "a": "sa_1",
+   "b": "eu_2",
+   "pos": [
+    -4.53,
+    -8.94
+   ],
+   "token": true
+  },
+  {
+   "a": "sa_1",
+   "b": "sa_3",
+   "pos": [
+    -3.4,
+    -16.33
+   ],
+   "token": true
+  },
+  {
+   "a": "sa_2",
+   "b": "eu_3",
+   "pos": [
+    -2.15,
+    -10.99
+   ],
+   "token": true
+  },
+  {
+   "a": "ca_1",
+   "b": "eu_1",
+   "pos": [
+    -6.52,
+    -0.98
+   ],
+   "token": true
+  },
+  {
+   "a": "ca_1",
+   "b": "ca_2",
+   "pos": [
+    -10.27,
+    -5.27
+   ],
+   "token": true
+  },
+  {
+   "a": "ca_3",
+   "b": "eu_2",
+   "pos": [
+    -6.65,
+    -5.58
+   ],
+   "token": true
+  },
+  {
+   "a": "ca_3",
+   "b": "ca_4",
+   "pos": [
+    -9.15,
+    -9.06
+   ],
+   "token": true
+  },
+  {
+   "a": "eu_4",
+   "b": "eu_8",
+   "pos": [
+    4.98,
+    0.67
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_5",
+   "b": "eu_1",
+   "pos": [
+    -0.29,
+    -0.46
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_8",
+   "b": "eu_5",
+   "pos": [
+    4.84,
+    -0.65
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_11",
+   "b": "eu_10",
+   "pos": [
+    9.28,
+    -3.66
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_2",
+   "b": "eu_6",
+   "pos": [
+    -0.53,
+    -4.91
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_6",
+   "b": "eu_9",
+   "pos": [
+    3.29,
+    -4.31
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_9",
+   "b": "eu_8",
+   "pos": [
+    5.87,
+    -2.03
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_3",
+   "b": "eu_7",
+   "pos": [
+    0.08,
+    -8.02
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_7",
+   "b": "eu_9",
+   "pos": [
+    3.88,
+    -5.57
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_10",
+   "b": "eu_9",
+   "pos": [
+    6.33,
+    -4.81
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_10",
+   "b": "eu_7",
+   "pos": [
+    5.29,
+    -6.88
+   ],
+   "token": false
+  }
+ ],
+ "tracks": {
+  "north_america": [
+   [
+    -15.04,
+    4.57
+   ],
+   [
+    -15.05,
+    5.9
+   ],
+   [
+    -15.03,
+    7.24
+   ],
+   [
+    -15.05,
+    8.59
+   ],
+   [
+    -15.02,
+    9.93
+   ],
+   [
+    -14.76,
+    11.31
+   ],
+   [
+    -13.74,
+    12.1
+   ]
+  ],
+  "india": [
+   [
+    4.41,
+    9.03
+   ],
+   [
+    4.28,
+    10.41
+   ],
+   [
+    3.69,
+    11.63
+   ],
+   [
+    2.4,
+    12.1
+   ],
+   [
+    1.07,
+    12.09
+   ],
+   [
+    -0.28,
+    12.11
+   ],
+   [
+    -1.6,
+    12.11
+   ]
+  ],
+  "far_east": [
+   [
+    15.01,
+    7.33
+   ],
+   [
+    15.01,
+    8.7
+   ],
+   [
+    14.98,
+    10.06
+   ],
+   [
+    14.64,
+    11.36
+   ],
+   [
+    13.49,
+    12.11
+   ],
+   [
+    12.16,
+    12.1
+   ],
+   [
+    10.81,
+    12.1
+   ]
+  ],
+  "africa": [
+   [
+    11.15,
+    -18.15
+   ],
+   [
+    12.49,
+    -18.14
+   ],
+   [
+    13.83,
+    -18.14
+   ],
+   [
+    15.06,
+    -17.58
+   ],
+   [
+    15.03,
+    -16.24
+   ],
+   [
+    15.05,
+    -14.88
+   ]
+  ],
+  "south_america": [
+   [
+    -4.2,
+    -18.08
+   ],
+   [
+    -5.54,
+    -18.09
+   ],
+   [
+    -6.89,
+    -18.07
+   ],
+   [
+    -8.24,
+    -18.09
+   ],
+   [
+    -9.59,
+    -18.08
+   ],
+   [
+    -10.95,
+    -18.08
+   ]
+  ],
+  "caribbean": [
+   [
+    -13.62,
+    -1.19
+   ],
+   [
+    -14.49,
+    -2.2
+   ],
+   [
+    -14.99,
+    -3.42
+   ],
+   [
+    -15.01,
+    -4.79
+   ],
+   [
+    -15.01,
+    -6.15
+   ],
+   [
+    -15.02,
+    -7.51
+   ]
+  ]
+ },
+ "slavery_deck_pos": [
+  14.27,
+  -6.86
+ ],
+ "discard_pos": [
+  17.98,
+  -1.95
+ ],
+ "image_parts": [
+  {
+   "src": [
+    0,
+    0,
+    3056,
+    1550
+   ],
+   "dst": [
+    -15.978,
+    -3.0388,
+    16.1103,
+    13.3575
+   ]
+  },
+  {
+   "src": [
+    0,
+    1522,
+    3056,
+    1550
+   ],
+   "dst": [
+    -16.1124,
+    -19.2846,
+    16.0763,
+    -2.862
+   ]
+  }
+ ]
+}

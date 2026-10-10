@@ -1,0 +1,1002 @@
+{
+ "_nota": "Generato da tools/estrai_tts.py dal mod TTS 1709680050. Coordinate x,z del tavolo TTS.",
+ "side": "A",
+ "players": "2-4",
+ "bounds": [
+  -16.09,
+  -19.1,
+  16.09,
+  13.1
+ ],
+ "image": "res://assets/board_a.jpg",
+ "regions": [
+  {
+   "id": "north_america",
+   "name": "Nord America",
+   "color": "#4f8a7c",
+   "start_open": false,
+   "sea": [
+    -7.78,
+    4.35
+   ],
+   "deck_pos": [
+    -10.97,
+    11.35
+   ],
+   "gov_pos": [
+    -10.92,
+    14.39
+   ]
+  },
+  {
+   "id": "india",
+   "name": "India",
+   "color": "#8a6aa8",
+   "start_open": false,
+   "sea": [
+    2.29,
+    5.03
+   ],
+   "deck_pos": [
+    -4.37,
+    11.35
+   ],
+   "gov_pos": [
+    -4.33,
+    14.39
+   ]
+  },
+  {
+   "id": "far_east",
+   "name": "Estremo Oriente",
+   "color": "#c98a2e",
+   "start_open": false,
+   "sea": [
+    14.63,
+    3.91
+   ],
+   "deck_pos": [
+    8.25,
+    11.29
+   ],
+   "gov_pos": [
+    8.28,
+    14.4
+   ]
+  },
+  {
+   "id": "africa",
+   "name": "Africa",
+   "color": "#8a7a5a",
+   "start_open": false,
+   "sea": [
+    12.62,
+    -15.93
+   ],
+   "deck_pos": [
+    14.26,
+    -12.13
+   ],
+   "gov_pos": [
+    17.32,
+    -12.15
+   ]
+  },
+  {
+   "id": "south_america",
+   "name": "Sud America",
+   "color": "#6f8a4a",
+   "start_open": false,
+   "sea": [
+    -10.11,
+    -14.68
+   ],
+   "deck_pos": [
+    -13.77,
+    -17.35
+   ],
+   "gov_pos": [
+    -13.79,
+    -20.41
+   ]
+  },
+  {
+   "id": "caribbean",
+   "name": "Caraibi",
+   "color": "#b0703c",
+   "start_open": false,
+   "sea": [
+    -6.17,
+    -2.54
+   ],
+   "deck_pos": [
+    -14.29,
+    -10.23
+   ],
+   "gov_pos": [
+    -17.33,
+    -10.25
+   ]
+  },
+  {
+   "id": "europe",
+   "name": "Europa e Mediterraneo",
+   "color": "#3f6f8f",
+   "start_open": true,
+   "sea": null,
+   "deck_pos": [
+    14.27,
+    -1.94
+   ],
+   "gov_pos": null
+  }
+ ],
+ "nodes": [
+  {
+   "id": "na_1",
+   "region": "north_america",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -13.02,
+    4.54
+   ]
+  },
+  {
+   "id": "na_2",
+   "region": "north_america",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -10.43,
+    6.13
+   ]
+  },
+  {
+   "id": "na_3",
+   "region": "north_america",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -8.6,
+    8.88
+   ]
+  },
+  {
+   "id": "na_4",
+   "region": "north_america",
+   "kind": "city",
+   "glory": 2,
+   "pos": [
+    -14.87,
+    2.43
+   ]
+  },
+  {
+   "id": "na_5",
+   "region": "north_america",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    -9.88,
+    1.79
+   ]
+  },
+  {
+   "id": "in_1",
+   "region": "india",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -4.22,
+    7.99
+   ]
+  },
+  {
+   "id": "in_2",
+   "region": "india",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -0.95,
+    4.97
+   ]
+  },
+  {
+   "id": "in_3",
+   "region": "india",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    0.17,
+    8.8
+   ]
+  },
+  {
+   "id": "in_4",
+   "region": "india",
+   "kind": "city",
+   "glory": 2,
+   "pos": [
+    2.85,
+    9.88
+   ]
+  },
+  {
+   "id": "in_5",
+   "region": "india",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    -4.37,
+    3.42
+   ]
+  },
+  {
+   "id": "fe_1",
+   "region": "far_east",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    8.09,
+    4.18
+   ]
+  },
+  {
+   "id": "fe_2",
+   "region": "far_east",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    11.69,
+    4.83
+   ]
+  },
+  {
+   "id": "fe_3",
+   "region": "far_east",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    12.8,
+    9.92
+   ]
+  },
+  {
+   "id": "fe_4",
+   "region": "far_east",
+   "kind": "city",
+   "glory": 2,
+   "pos": [
+    7.44,
+    8.66
+   ]
+  },
+  {
+   "id": "fe_5",
+   "region": "far_east",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    14.85,
+    6.13
+   ]
+  },
+  {
+   "id": "af_1",
+   "region": "africa",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    11.21,
+    -13.21
+   ]
+  },
+  {
+   "id": "af_2",
+   "region": "africa",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    6.36,
+    -15.77
+   ]
+  },
+  {
+   "id": "af_3",
+   "region": "africa",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    4.14,
+    -11.77
+   ]
+  },
+  {
+   "id": "af_4",
+   "region": "africa",
+   "kind": "city",
+   "glory": 2,
+   "pos": [
+    9.44,
+    -17.86
+   ]
+  },
+  {
+   "id": "af_5",
+   "region": "africa",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    4.92,
+    -18.07
+   ]
+  },
+  {
+   "id": "sa_1",
+   "region": "south_america",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -0.7,
+    -15.07
+   ]
+  },
+  {
+   "id": "sa_2",
+   "region": "south_america",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -4.38,
+    -13.32
+   ]
+  },
+  {
+   "id": "sa_3",
+   "region": "south_america",
+   "kind": "city",
+   "glory": 2,
+   "pos": [
+    -1.84,
+    -18.28
+   ]
+  },
+  {
+   "id": "sa_4",
+   "region": "south_america",
+   "kind": "city",
+   "glory": 2,
+   "pos": [
+    -7.49,
+    -15.18
+   ]
+  },
+  {
+   "id": "sa_5",
+   "region": "south_america",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    1.26,
+    -17.65
+   ]
+  },
+  {
+   "id": "ca_1",
+   "region": "caribbean",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -9.39,
+    -10.21
+   ]
+  },
+  {
+   "id": "ca_2",
+   "region": "caribbean",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -8.5,
+    -6.89
+   ]
+  },
+  {
+   "id": "ca_3",
+   "region": "caribbean",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -10.46,
+    -3.98
+   ]
+  },
+  {
+   "id": "ca_4",
+   "region": "caribbean",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    -13.24,
+    -1.5
+   ]
+  },
+  {
+   "id": "ca_5",
+   "region": "caribbean",
+   "kind": "city",
+   "glory": 2,
+   "pos": [
+    -13.16,
+    -5.85
+   ]
+  },
+  {
+   "id": "ca_6",
+   "region": "caribbean",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    -11.61,
+    -8.44
+   ]
+  },
+  {
+   "id": "eu_1",
+   "region": "europe",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    -3.46,
+    -0.18
+   ]
+  },
+  {
+   "id": "eu_2",
+   "region": "europe",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    -2.75,
+    -4.7
+   ]
+  },
+  {
+   "id": "eu_3",
+   "region": "europe",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    -2.73,
+    -8.37
+   ]
+  },
+  {
+   "id": "eu_4",
+   "region": "europe",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    3.25,
+    1.71
+   ]
+  },
+  {
+   "id": "eu_5",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    2.81,
+    -0.75
+   ]
+  },
+  {
+   "id": "eu_6",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    1.61,
+    -5.12
+   ]
+  },
+  {
+   "id": "eu_7",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    2.74,
+    -7.67
+   ]
+  },
+  {
+   "id": "eu_8",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    7.55,
+    -1.13
+   ]
+  },
+  {
+   "id": "eu_9",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    4.48,
+    -3.47
+   ]
+  },
+  {
+   "id": "eu_10",
+   "region": "europe",
+   "kind": "city",
+   "glory": 1,
+   "pos": [
+    8.14,
+    -6.62
+   ]
+  },
+  {
+   "id": "eu_11",
+   "region": "europe",
+   "kind": "fleet",
+   "glory": 0,
+   "pos": [
+    11.39,
+    -8.68
+   ]
+  }
+ ],
+ "links": [
+  {
+   "a": "na_1",
+   "b": "ca_4",
+   "pos": [
+    -12.43,
+    1.22
+   ],
+   "token": true
+  },
+  {
+   "a": "na_1",
+   "b": "na_3",
+   "pos": [
+    -11.54,
+    7.16
+   ],
+   "token": true
+  },
+  {
+   "a": "na_2",
+   "b": "eu_1",
+   "pos": [
+    -7.54,
+    1.66
+   ],
+   "token": true
+  },
+  {
+   "a": "in_1",
+   "b": "in_3",
+   "pos": [
+    -2.04,
+    7.89
+   ],
+   "token": true
+  },
+  {
+   "a": "in_1",
+   "b": "in_2",
+   "pos": [
+    -3.03,
+    5.13
+   ],
+   "token": true
+  },
+  {
+   "a": "in_3",
+   "b": "fe_1",
+   "pos": [
+    3.88,
+    6.92
+   ],
+   "token": true
+  },
+  {
+   "a": "in_4",
+   "b": "fe_4",
+   "pos": [
+    4.99,
+    8.94
+   ],
+   "token": true
+  },
+  {
+   "a": "in_2",
+   "b": "eu_4",
+   "pos": [
+    0.78,
+    2.33
+   ],
+   "token": true
+  },
+  {
+   "a": "fe_3",
+   "b": "fe_1",
+   "pos": [
+    9.08,
+    5.99
+   ],
+   "token": true
+  },
+  {
+   "a": "fe_3",
+   "b": "fe_2",
+   "pos": [
+    11.68,
+    6.99
+   ],
+   "token": true
+  },
+  {
+   "a": "fe_1",
+   "b": "eu_4",
+   "pos": [
+    5.33,
+    2.64
+   ],
+   "token": true
+  },
+  {
+   "a": "fe_2",
+   "b": "eu_11",
+   "pos": [
+    9.91,
+    -2.25
+   ],
+   "token": true
+  },
+  {
+   "a": "af_3",
+   "b": "eu_3",
+   "pos": [
+    1.18,
+    -9.07
+   ],
+   "token": true
+  },
+  {
+   "a": "af_3",
+   "b": "af_2",
+   "pos": [
+    5.27,
+    -13.35
+   ],
+   "token": true
+  },
+  {
+   "a": "af_1",
+   "b": "eu_11",
+   "pos": [
+    11.38,
+    -10.39
+   ],
+   "token": true
+  },
+  {
+   "a": "af_1",
+   "b": "af_2",
+   "pos": [
+    8.69,
+    -14.84
+   ],
+   "token": true
+  },
+  {
+   "a": "sa_2",
+   "b": "eu_2",
+   "pos": [
+    -4.64,
+    -9.55
+   ],
+   "token": true
+  },
+  {
+   "a": "sa_2",
+   "b": "sa_1",
+   "pos": [
+    -3.61,
+    -15.2
+   ],
+   "token": true
+  },
+  {
+   "a": "sa_1",
+   "b": "eu_3",
+   "pos": [
+    -2.26,
+    -10.95
+   ],
+   "token": true
+  },
+  {
+   "a": "ca_4",
+   "b": "ca_3",
+   "pos": [
+    -12.14,
+    -3.29
+   ],
+   "token": true
+  },
+  {
+   "a": "ca_3",
+   "b": "eu_1",
+   "pos": [
+    -7.74,
+    -0.98
+   ],
+   "token": true
+  },
+  {
+   "a": "ca_3",
+   "b": "ca_1",
+   "pos": [
+    -10.23,
+    -6.73
+   ],
+   "token": true
+  },
+  {
+   "a": "ca_2",
+   "b": "eu_2",
+   "pos": [
+    -6.01,
+    -5.06
+   ],
+   "token": true
+  },
+  {
+   "a": "ca_2",
+   "b": "ca_1",
+   "pos": [
+    -7.45,
+    -8.47
+   ],
+   "token": true
+  },
+  {
+   "a": "eu_8",
+   "b": "eu_9",
+   "pos": [
+    6.75,
+    -3.23
+   ],
+   "token": true
+  },
+  {
+   "a": "eu_6",
+   "b": "eu_7",
+   "pos": [
+    3.44,
+    -5.62
+   ],
+   "token": true
+  },
+  {
+   "a": "eu_9",
+   "b": "eu_10",
+   "pos": [
+    5.5,
+    -5.33
+   ],
+   "token": true
+  },
+  {
+   "a": "eu_5",
+   "b": "eu_1",
+   "pos": [
+    -0.32,
+    -0.46
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_8",
+   "b": "eu_4",
+   "pos": [
+    5.4,
+    0.29
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_2",
+   "b": "eu_6",
+   "pos": [
+    -0.57,
+    -4.91
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_7",
+   "b": "eu_3",
+   "pos": [
+    0.01,
+    -8.02
+   ],
+   "token": false
+  },
+  {
+   "a": "eu_11",
+   "b": "eu_10",
+   "pos": [
+    9.77,
+    -7.65
+   ],
+   "token": false
+  }
+ ],
+ "tracks": {
+  "north_america": [
+   [
+    -15.05,
+    8.59
+   ],
+   [
+    -15.03,
+    9.93
+   ],
+   [
+    -14.77,
+    11.31
+   ],
+   [
+    -13.7,
+    12.11
+   ]
+  ],
+  "india": [
+   [
+    3.7,
+    11.61
+   ],
+   [
+    2.42,
+    12.08
+   ],
+   [
+    1.07,
+    12.07
+   ],
+   [
+    -0.26,
+    12.08
+   ],
+   [
+    -1.61,
+    12.07
+   ]
+  ],
+  "far_east": [
+   [
+    15.12,
+    9.96
+   ],
+   [
+    14.88,
+    11.32
+   ],
+   [
+    13.73,
+    12.07
+   ],
+   [
+    12.38,
+    12.05
+   ],
+   [
+    11.03,
+    12.05
+   ]
+  ],
+  "africa": [
+   [
+    13.76,
+    -18.13
+   ],
+   [
+    15.01,
+    -17.58
+   ],
+   [
+    15.01,
+    -16.22
+   ],
+   [
+    15.02,
+    -14.9
+   ]
+  ],
+  "south_america": [
+   [
+    -7.1,
+    -18.05
+   ],
+   [
+    -8.29,
+    -18.06
+   ],
+   [
+    -9.65,
+    -18.07
+   ],
+   [
+    -11.0,
+    -18.05
+   ]
+  ],
+  "caribbean": [
+   [
+    -15.02,
+    -3.41
+   ],
+   [
+    -15.02,
+    -4.75
+   ],
+   [
+    -15.03,
+    -6.12
+   ],
+   [
+    -15.03,
+    -7.47
+   ]
+  ]
+ },
+ "slavery_deck_pos": [
+  14.27,
+  -6.86
+ ],
+ "discard_pos": [
+  17.98,
+  -1.95
+ ],
+ "image_parts": [
+  {
+   "src": [
+    0,
+    0,
+    3058,
+    1550
+   ],
+   "dst": [
+    -16.0158,
+    -3.1467,
+    16.0297,
+    13.0853
+   ]
+  },
+  {
+   "src": [
+    0,
+    1522,
+    3058,
+    1550
+   ],
+   "dst": [
+    -16.0239,
+    -19.0923,
+    16.0301,
+    -2.8555
+   ]
+  }
+ ]
+}

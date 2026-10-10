@@ -1,0 +1,562 @@
+{
+ "_nota": "Icone e gloria dallo script del mod TTS, valori dall'ordine dei mazzi; verificati sulle immagini.",
+ "cards": [
+  {
+   "id": "north_america_gov",
+   "region": "north_america",
+   "deck": "main",
+   "value": 0,
+   "icons": {
+    "finance": 1,
+    "influence": 2,
+    "glory": 1
+   },
+   "governor": true,
+   "image": "res://assets/cards/north_america_gov.jpg"
+  },
+  {
+   "id": "north_america_1",
+   "region": "north_america",
+   "deck": "main",
+   "value": 1,
+   "icons": {
+    "industry": 2
+   },
+   "bonus_disc": true,
+   "image": "res://assets/cards/north_america_1.jpg"
+  },
+  {
+   "id": "north_america_2",
+   "region": "north_america",
+   "deck": "main",
+   "value": 2,
+   "icons": {
+    "finance": 3
+   },
+   "image": "res://assets/cards/north_america_2.jpg"
+  },
+  {
+   "id": "north_america_3",
+   "region": "north_america",
+   "deck": "main",
+   "value": 3,
+   "icons": {
+    "industry": 2,
+    "culture": 2
+   },
+   "image": "res://assets/cards/north_america_3.jpg"
+  },
+  {
+   "id": "north_america_4",
+   "region": "north_america",
+   "deck": "main",
+   "value": 4,
+   "icons": {
+    "culture": 2,
+    "influence": 2,
+    "glory": 1
+   },
+   "image": "res://assets/cards/north_america_4.jpg"
+  },
+  {
+   "id": "north_america_5",
+   "region": "north_america",
+   "deck": "main",
+   "value": 5,
+   "icons": {
+    "glory": 6
+   },
+   "image": "res://assets/cards/north_america_5.jpg"
+  },
+  {
+   "id": "india_gov",
+   "region": "india",
+   "deck": "main",
+   "value": 0,
+   "icons": {
+    "culture": 1,
+    "finance": 1,
+    "influence": 1,
+    "glory": 1
+   },
+   "governor": true,
+   "image": "res://assets/cards/india_gov.jpg"
+  },
+  {
+   "id": "india_1",
+   "region": "india",
+   "deck": "main",
+   "value": 1,
+   "icons": {
+    "culture": 1,
+    "influence": 1
+   },
+   "bonus_disc": true,
+   "image": "res://assets/cards/india_1.jpg"
+  },
+  {
+   "id": "india_2",
+   "region": "india",
+   "deck": "main",
+   "value": 2,
+   "icons": {
+    "culture": 1,
+    "finance": 1,
+    "influence": 1
+   },
+   "image": "res://assets/cards/india_2.jpg"
+  },
+  {
+   "id": "india_3",
+   "region": "india",
+   "deck": "main",
+   "value": 3,
+   "icons": {
+    "culture": 1,
+    "finance": 2,
+    "influence": 1
+   },
+   "image": "res://assets/cards/india_3.jpg"
+  },
+  {
+   "id": "india_4",
+   "region": "india",
+   "deck": "main",
+   "value": 4,
+   "icons": {
+    "finance": 2,
+    "influence": 1,
+    "glory": 2
+   },
+   "image": "res://assets/cards/india_4.jpg"
+  },
+  {
+   "id": "india_5",
+   "region": "india",
+   "deck": "main",
+   "value": 5,
+   "icons": {
+    "finance": 2,
+    "influence": 2,
+    "glory": 2
+   },
+   "image": "res://assets/cards/india_5.jpg"
+  },
+  {
+   "id": "far_east_gov",
+   "region": "far_east",
+   "deck": "main",
+   "value": 0,
+   "icons": {
+    "industry": 2,
+    "culture": 1,
+    "glory": 1
+   },
+   "governor": true,
+   "image": "res://assets/cards/far_east_gov.jpg"
+  },
+  {
+   "id": "far_east_1",
+   "region": "far_east",
+   "deck": "main",
+   "value": 1,
+   "icons": {
+    "industry": 1,
+    "finance": 1
+   },
+   "bonus_disc": true,
+   "image": "res://assets/cards/far_east_1.jpg"
+  },
+  {
+   "id": "far_east_2",
+   "region": "far_east",
+   "deck": "main",
+   "value": 2,
+   "icons": {
+    "industry": 2,
+    "finance": 1
+   },
+   "image": "res://assets/cards/far_east_2.jpg"
+  },
+  {
+   "id": "far_east_3",
+   "region": "far_east",
+   "deck": "main",
+   "value": 3,
+   "icons": {
+    "industry": 2,
+    "finance": 2
+   },
+   "image": "res://assets/cards/far_east_3.jpg"
+  },
+  {
+   "id": "far_east_4",
+   "region": "far_east",
+   "deck": "main",
+   "value": 4,
+   "icons": {
+    "industry": 1,
+    "culture": 1,
+    "finance": 1,
+    "influence": 1,
+    "glory": 1
+   },
+   "image": "res://assets/cards/far_east_4.jpg"
+  },
+  {
+   "id": "far_east_5",
+   "region": "far_east",
+   "deck": "main",
+   "value": 5,
+   "icons": {
+    "influence": 3,
+    "glory": 3
+   },
+   "image": "res://assets/cards/far_east_5.jpg"
+  },
+  {
+   "id": "africa_gov",
+   "region": "africa",
+   "deck": "main",
+   "value": 0,
+   "icons": {
+    "finance": 2,
+    "influence": 1,
+    "glory": 1
+   },
+   "governor": true,
+   "image": "res://assets/cards/africa_gov.jpg"
+  },
+  {
+   "id": "africa_1",
+   "region": "africa",
+   "deck": "main",
+   "value": 1,
+   "icons": {
+    "industry": 1,
+    "influence": 1
+   },
+   "bonus_disc": true,
+   "image": "res://assets/cards/africa_1.jpg"
+  },
+  {
+   "id": "africa_2",
+   "region": "africa",
+   "deck": "main",
+   "value": 2,
+   "icons": {
+    "industry": 1,
+    "finance": 1,
+    "influence": 1
+   },
+   "image": "res://assets/cards/africa_2.jpg"
+  },
+  {
+   "id": "africa_3",
+   "region": "africa",
+   "deck": "main",
+   "value": 3,
+   "icons": {
+    "finance": 2,
+    "influence": 2
+   },
+   "image": "res://assets/cards/africa_3.jpg"
+  },
+  {
+   "id": "africa_4",
+   "region": "africa",
+   "deck": "main",
+   "value": 4,
+   "icons": {
+    "industry": 2,
+    "finance": 1,
+    "influence": 1,
+    "glory": 1
+   },
+   "image": "res://assets/cards/africa_4.jpg"
+  },
+  {
+   "id": "africa_5",
+   "region": "africa",
+   "deck": "main",
+   "value": 5,
+   "icons": {
+    "industry": 2,
+    "finance": 2,
+    "glory": 2
+   },
+   "image": "res://assets/cards/africa_5.jpg"
+  },
+  {
+   "id": "south_america_gov",
+   "region": "south_america",
+   "deck": "main",
+   "value": 0,
+   "icons": {
+    "influence": 3,
+    "glory": 1
+   },
+   "governor": true,
+   "image": "res://assets/cards/south_america_gov.jpg"
+  },
+  {
+   "id": "south_america_1",
+   "region": "south_america",
+   "deck": "main",
+   "value": 1,
+   "icons": {
+    "culture": 2
+   },
+   "bonus_disc": true,
+   "image": "res://assets/cards/south_america_1.jpg"
+  },
+  {
+   "id": "south_america_2",
+   "region": "south_america",
+   "deck": "main",
+   "value": 2,
+   "icons": {
+    "culture": 3
+   },
+   "image": "res://assets/cards/south_america_2.jpg"
+  },
+  {
+   "id": "south_america_3",
+   "region": "south_america",
+   "deck": "main",
+   "value": 3,
+   "icons": {
+    "culture": 4
+   },
+   "image": "res://assets/cards/south_america_3.jpg"
+  },
+  {
+   "id": "south_america_4",
+   "region": "south_america",
+   "deck": "main",
+   "value": 4,
+   "icons": {
+    "finance": 3,
+    "glory": 2
+   },
+   "image": "res://assets/cards/south_america_4.jpg"
+  },
+  {
+   "id": "south_america_5",
+   "region": "south_america",
+   "deck": "main",
+   "value": 5,
+   "icons": {
+    "finance": 3,
+    "glory": 3
+   },
+   "image": "res://assets/cards/south_america_5.jpg"
+  },
+  {
+   "id": "caribbean_gov",
+   "region": "caribbean",
+   "deck": "main",
+   "value": 0,
+   "icons": {
+    "culture": 2,
+    "influence": 1,
+    "glory": 1
+   },
+   "governor": true,
+   "image": "res://assets/cards/caribbean_gov.jpg"
+  },
+  {
+   "id": "caribbean_1",
+   "region": "caribbean",
+   "deck": "main",
+   "value": 1,
+   "icons": {
+    "finance": 2
+   },
+   "bonus_disc": true,
+   "image": "res://assets/cards/caribbean_1.jpg"
+  },
+  {
+   "id": "caribbean_2",
+   "region": "caribbean",
+   "deck": "main",
+   "value": 2,
+   "icons": {
+    "finance": 1,
+    "influence": 2
+   },
+   "image": "res://assets/cards/caribbean_2.jpg"
+  },
+  {
+   "id": "caribbean_3",
+   "region": "caribbean",
+   "deck": "main",
+   "value": 3,
+   "icons": {
+    "finance": 4
+   },
+   "image": "res://assets/cards/caribbean_3.jpg"
+  },
+  {
+   "id": "caribbean_4",
+   "region": "caribbean",
+   "deck": "main",
+   "value": 4,
+   "icons": {
+    "influence": 3,
+    "glory": 2
+   },
+   "image": "res://assets/cards/caribbean_4.jpg"
+  },
+  {
+   "id": "caribbean_5",
+   "region": "caribbean",
+   "deck": "main",
+   "value": 5,
+   "icons": {
+    "industry": 3,
+    "glory": 3
+   },
+   "image": "res://assets/cards/caribbean_5.jpg"
+  },
+  {
+   "id": "europe_0",
+   "region": "europe",
+   "deck": "main",
+   "value": 0,
+   "icons": {
+    "culture": 1,
+    "finance": 1
+   },
+   "image": "res://assets/cards/europe_0.jpg"
+  },
+  {
+   "id": "europe_1",
+   "region": "europe",
+   "deck": "main",
+   "value": 1,
+   "icons": {
+    "culture": 2,
+    "influence": 1
+   },
+   "image": "res://assets/cards/europe_1.jpg"
+  },
+  {
+   "id": "europe_2",
+   "region": "europe",
+   "deck": "main",
+   "value": 2,
+   "icons": {
+    "culture": 1,
+    "influence": 2
+   },
+   "image": "res://assets/cards/europe_2.jpg"
+  },
+  {
+   "id": "europe_3",
+   "region": "europe",
+   "deck": "main",
+   "value": 3,
+   "icons": {
+    "industry": 1,
+    "culture": 1,
+    "finance": 1,
+    "influence": 1
+   },
+   "image": "res://assets/cards/europe_3.jpg"
+  },
+  {
+   "id": "europe_4",
+   "region": "europe",
+   "deck": "main",
+   "value": 4,
+   "icons": {
+    "glory": 5
+   },
+   "image": "res://assets/cards/europe_4.jpg"
+  },
+  {
+   "id": "europe_5",
+   "region": "europe",
+   "deck": "main",
+   "value": 5,
+   "icons": {
+    "culture": 3,
+    "glory": 3
+   },
+   "abolition": true,
+   "image": "res://assets/cards/europe_5.jpg"
+  },
+  {
+   "id": "slavery_0",
+   "region": "europe",
+   "deck": "slavery",
+   "value": 0,
+   "icons": {
+    "industry": 2,
+    "finance": 1
+   },
+   "slavery": true,
+   "image": "res://assets/cards/slavery_0.jpg"
+  },
+  {
+   "id": "slavery_1",
+   "region": "europe",
+   "deck": "slavery",
+   "value": 1,
+   "icons": {
+    "industry": 1,
+    "finance": 2
+   },
+   "slavery": true,
+   "image": "res://assets/cards/slavery_1.jpg"
+  },
+  {
+   "id": "slavery_2",
+   "region": "europe",
+   "deck": "slavery",
+   "value": 2,
+   "icons": {
+    "industry": 3
+   },
+   "slavery": true,
+   "image": "res://assets/cards/slavery_2.jpg"
+  },
+  {
+   "id": "slavery_3",
+   "region": "europe",
+   "deck": "slavery",
+   "value": 3,
+   "icons": {
+    "industry": 2,
+    "finance": 2
+   },
+   "slavery": true,
+   "image": "res://assets/cards/slavery_3.jpg"
+  },
+  {
+   "id": "slavery_4",
+   "region": "europe",
+   "deck": "slavery",
+   "value": 4,
+   "icons": {
+    "industry": 2,
+    "finance": 2
+   },
+   "slavery": true,
+   "image": "res://assets/cards/slavery_4.jpg"
+  },
+  {
+   "id": "slavery_5",
+   "region": "europe",
+   "deck": "slavery",
+   "value": 5,
+   "icons": {
+    "industry": 2,
+    "finance": 3
+   },
+   "slavery": true,
+   "image": "res://assets/cards/slavery_5.jpg"
+  }
+ ]
+}
