@@ -27,7 +27,7 @@ var top_label: Label
 var prompt: Label
 var chips: HFlowContainer
 var supply_flow: HFlowContainer
-var players_box: HBoxContainer
+var players_box: HFlowContainer
 var left_tabs: TabContainer
 var board_tabs: TabBar
 var supply_hint: Label
@@ -191,7 +191,7 @@ func _build_ui() -> void:
 	# Destra: plance a schede (una per giocatore), comandi, riepilogo avversari, tessere Exploit.
 	var right := VBoxContainer.new()
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	right.custom_minimum_size = Vector2(440, 0)
+	right.custom_minimum_size = Vector2(360, 0)
 	right.add_theme_constant_override("separation", 6)
 	body.add_child(right)
 	board_tabs = TabBar.new()
@@ -199,7 +199,7 @@ func _build_ui() -> void:
 	board_tabs.tab_clicked.connect(func(i): _pin_player(i))
 	right.add_child(board_tabs)
 	board = PlayerBoardView.new()
-	board.custom_minimum_size = Vector2(440, 313)
+	board.custom_minimum_size = Vector2(200, 200)
 	right.resized.connect(_fit_right)
 	board.clicked.connect(_on_click)
 	board.enlarge_requested.connect(func(t, title): show_big(t, title))
@@ -211,14 +211,15 @@ func _build_ui() -> void:
 	right.add_child(prompt)
 	chips = HFlowContainer.new()
 	right.add_child(chips)
-	players_box = HBoxContainer.new()
-	players_box.add_theme_constant_override("separation", 6)
+	players_box = HFlowContainer.new()
+	players_box.add_theme_constant_override("h_separation", 6)
+	players_box.add_theme_constant_override("v_separation", 6)
 	right.add_child(players_box)
 	xview = MapView.new()
 	xview.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	xview.mode = "exploits"
 	xview.tex_fn = tex
-	xview.custom_minimum_size = Vector2(440, 110)
+	xview.custom_minimum_size = Vector2(200, 80)
 	xview.target_clicked.connect(_on_click)
 	xview.enlarge_requested.connect(func(t, title): show_big(t, title))
 	right.add_child(xview)
@@ -340,11 +341,27 @@ func _pin_player(i: int) -> void:
 	_refresh_all()
 
 
+## Colonna destra: plancia e tessere Exploit si dividono l'altezza rimasta, senza mai uscire dalla
+## finestra (con una finestra larga ma bassa si rimpiccioliscono entrambe in proporzione).
 func _fit_right() -> void:
-	var w: float = board.get_parent().size.x
-	board.custom_minimum_size = Vector2(440, maxf(313.0, w / 1.404))
-	xview.visible = not state.exploits.is_empty()
-	xview.custom_minimum_size = Vector2(440, w * 0.232)
+	var col: Control = board.get_parent()
+	var w: float = col.size.x
+	var has_x: bool = not state.is_empty() and not state.exploits.is_empty()
+	xview.visible = has_x
+	var fixed := 0.0
+	var visible_n := 0
+	for c in col.get_children():
+		if c is Control and c.visible:
+			visible_n += 1
+			if c != board and c != xview:
+				fixed += c.get_combined_minimum_size().y
+	fixed += float(maxi(0, visible_n - 1)) * col.get_theme_constant("separation")
+	var avail := maxf(120.0, col.size.y - fixed - 4.0)
+	var bh := w / 1.404
+	var xh := w * 0.232 if has_x else 0.0
+	var f := minf(1.0, avail / (bh + xh))
+	board.custom_minimum_size = Vector2(200, floorf(bh * f))
+	xview.custom_minimum_size = Vector2(200, floorf(xh * f))
 
 
 var _dot_cache := {}
@@ -686,6 +703,7 @@ func _refresh_all() -> void:
 		var mark := "▶ " if decision.get("p", -1) == p else ""
 		board_tabs.set_tab_title(p, mark + String(pl.name) + (" (IA)" if pl.ai else ""))
 	board_tabs.current_tab = _shown_player
+	_fit_right.call_deferred()
 	var who := ""
 	if decision.has("p") and decision.p >= 0:
 		who = " — tocca a " + state.players[decision.p].name + (" (IA)" if state.players[decision.p].ai else "")
@@ -731,6 +749,7 @@ func _player_panel(p: int) -> Control:
 	var turn: bool = decision.get("p", -1) == p
 	var panel := PanelContainer.new()
 	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	panel.custom_minimum_size = Vector2(200, 0)
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color("#1b2833") if p != _shown_player else Color("#24384a")
 	sb.border_color = col if turn else col.darkened(0.45)
@@ -769,9 +788,11 @@ func _player_panel(p: int) -> Control:
 	a.text = "Ind %d · Cul %d · Ric %d · Inf %d" % [Rules.attr(state, p, "industry"), Rules.attr(state, p, "culture"),
 		Rules.attr(state, p, "finance"), Rules.attr(state, p, "influence")]
 	a.add_theme_font_size_override("font_size", 12)
+	a.clip_text = true
 	v.add_child(a)
 	var b := Label.new()
-	b.text = "Porto %d · riserva %d · carte %d · edifici %d" % [pl.harbor, pl.supply, pl.cards.size(), pl.buildings.size()]
+	b.text = "Porto %d · ris. %d · carte %d · edif. %d" % [pl.harbor, pl.supply, pl.cards.size(), pl.buildings.size()]
+	b.clip_text = true
 	b.add_theme_font_size_override("font_size", 12)
 	b.modulate = Color(1, 1, 1, 0.75)
 	v.add_child(b)

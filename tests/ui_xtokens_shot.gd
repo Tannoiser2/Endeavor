@@ -14,7 +14,8 @@ func _process(_d: float) -> bool:
 	var which := int(OS.get_cmdline_user_args()[1])
 	if frames == 3:
 		main._start_game([{"name": "Stefano", "ai": false, "color": "#2f6fd0"}, {"name": "Rosso", "ai": true, "ai_level": 2, "color": "#d23c3c"},
-			{"name": "Giallo", "ai": true, "ai_level": 2, "color": "#e0b52a"}], 8, {"exploit_ids": SETS[which]})
+			{"name": "Giallo", "ai": true, "ai_level": 2, "color": "#e0b52a"},
+			{"name": "Bianco", "ai": true, "ai_level": 2, "color": "#e8e8e8"}, {"name": "Viola", "ai": true, "ai_level": 2, "color": "#8a4fc0"}], 8, {"exploit_ids": SETS[which]})
 		main._current.pause_btn.button_pressed = true
 	if frames == 5:
 		var gs = main._current
@@ -22,7 +23,7 @@ func _process(_d: float) -> bool:
 		for rid in s.regions:
 			if not (which == 2 and rid == "north_america"):
 				Rules.open_region(s, rid)
-			for q in 3:
+			for q in 5:
 				if q != 1 or rid != "africa":
 					s.regions[rid].sea[q] += 1
 					s.players[q].supply -= 1

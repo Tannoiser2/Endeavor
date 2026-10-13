@@ -463,11 +463,40 @@ def build_menu_art():
     print("Logo pronto")
 
 
+def clean_seams(im):
+    """La scansione del lato B è cucita: righe chiare lungo la cucitura e una colonna bianca sul bordo
+    destro della metà alta. Si sostituiscono con i pixel vicini (si cercano, non sono a posizioni fisse)."""
+    import numpy as np
+    a = np.asarray(im).astype(np.int16)
+    h, w = a.shape[:2]
+    lum = a.mean(axis=2)
+    mid = h // 2
+    band = range(max(1, mid - 60), min(h - 1, mid + 60))
+    base = np.median(lum[mid - 80:mid + 80, w // 10:w * 9 // 10])
+    bad = [y for y in band if (lum[y, w // 10:w * 9 // 10] > 235).mean() > 0.25 or lum[y, w // 10:w * 9 // 10].mean() > base + 25]
+    for y in bad:
+        y0 = y - 1
+        while y0 in bad:
+            y0 -= 1
+        y1 = y + 1
+        while y1 in bad:
+            y1 += 1
+        t = (y - y0) / (y1 - y0)
+        a[y] = (a[y0] * (1 - t) + a[y1] * t).astype(np.int16)
+    for x in range(w - 6, w):
+        top = lum[: mid, x]
+        if top.mean() > 180:
+            a[: mid, x] = a[: mid, w - 7]
+    print("  cuciture ripulite: righe", bad)
+    return Image.fromarray(a.clip(0, 255).astype(np.uint8))
+
+
 def build_images():
     src_b = board_b_source()
     if src_b:
         im = Image.open(src_b).convert("RGB").rotate(180)  # la scansione è capovolta rispetto al tavolo TTS
         im.thumbnail((3072, 3072))
+        im = clean_seams(im)
         im.save(os.path.join(ASSETS, "board_b.jpg"), quality=86)
     board = local_image("https://i.imgur.com/GNK2dFK.jpg")
     im = Image.open(board).convert("RGB")
