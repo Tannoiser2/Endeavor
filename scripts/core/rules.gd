@@ -1207,8 +1207,8 @@ static func move_target(m: Dictionary) -> String:
 				return "charter:" + String(bd["charter"])
 			return "supply:" + String(m.b)
 	var o: Dictionary = m.get("o", m)
-	var a: String = o.get("a", "")
-	var k: String = o.get("k", "")
+	var a: String = str(o.get("a", ""))
+	var k: String = str(o.get("k", ""))
 	if a == "payment" and o.has("bi") and not o.has("x"):
 		return "bld:%d" % int(o.bi)
 	if a == "draw" and not o.has("x"):

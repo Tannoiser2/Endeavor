@@ -8,6 +8,7 @@ extends Control
 ## Chiavi cliccabili: node:<id>, sea:<regione>, region:<regione> (tracciato), deck:<regione>/<mazzo>, discard.
 
 signal target_clicked(key: String)
+signal enlarge_requested(tex: Texture2D, title: String)
 
 var state: Dictionary = {}
 var B: Dictionary = {}
@@ -16,6 +17,8 @@ var tex_fn: Callable
 var highlights: Dictionary = {}
 var hover_key := ""
 var zoom := 1.0
+## "all" = tabellone e tessere Exploit; "board" = solo il tabellone; "exploits" = solo le tessere.
+var mode := "all"
 var pan := Vector2.ZERO
 var _drag := false
 var _snap: Dictionary = {}
@@ -148,8 +151,15 @@ func _board_rect() -> Rect2:
 
 
 func _view_rect() -> Rect2:
+	if mode == "exploits":
+		if state.is_empty() or state.exploits.is_empty():
+			return Rect2(0, 0, 10, 3)
+		var xr := _xtile_rect(0)
+		for i in range(1, state.exploits.size()):
+			xr = xr.merge(_xtile_rect(i))
+		return xr.grow(0.25)
 	var r := _board_rect().grow(MARGIN)
-	if not state.is_empty() and not state.exploits.is_empty():
+	if mode == "all" and not state.is_empty() and not state.exploits.is_empty():
 		var bottom := _xtile_rect(0).position.y - 0.5
 		if bottom < r.position.y:
 			r.size.y += r.position.y - bottom
@@ -205,6 +215,10 @@ func _draw() -> void:
 		return
 	var k := _scale()
 	var font := get_theme_default_font()
+	if mode == "exploits":
+		for i in state.exploits.size():
+			_draw_xtile(i, state.exploits[i], k, font)
+		return
 	var br := _board_rect()
 	var tl := w2s([br.position.x, br.end.y])
 	var bsize := br.size * k
@@ -316,8 +330,9 @@ func _draw() -> void:
 		if highlights.has(key) or hover_key == key:
 			draw_arc(c, rad * 1.18, 0, TAU, 28, Color.YELLOW if highlights.has(key) else Color.WHITE, 3.5, true)
 	_draw_exploit_pieces(k, font)
-	for i in state.exploits.size():
-		_draw_xtile(i, state.exploits[i], k, font)
+	if mode == "all":
+		for i in state.exploits.size():
+			_draw_xtile(i, state.exploits[i], k, font)
 	_draw_anims(k)
 
 
@@ -636,6 +651,11 @@ func key_at(screen_pos: Vector2) -> String:
 	if B.is_empty():
 		return ""
 	var w := s2w(screen_pos)
+	if mode == "exploits":
+		for i in state.exploits.size():
+			if _xtile_rect(i).has_point(w):
+				return "x:" + String(state.exploits[i])
+		return ""
 	var best := ""
 	var bd := 0.72
 	for nid in B["node"]:
@@ -660,7 +680,7 @@ func key_at(screen_pos: Vector2) -> String:
 	if _in_card(w, B["discard_pos"], false):
 		return "discard"
 	for i in state.exploits.size():
-		if _xtile_rect(i).has_point(w):
+		if mode == "all" and _xtile_rect(i).has_point(w):
 			return "x:" + String(state.exploits[i])
 	for rid in state.get("charters", {}):
 		var cp: Array = _charter_pos(GameData.buildings[state.charters[rid]])
@@ -691,6 +711,12 @@ func _gui_input(event: InputEvent) -> void:
 			var k := key_at(event.position)
 			if k != "":
 				target_clicked.emit(k)
+		elif mode == "exploits":
+			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+				var kx := key_at(event.position)
+				if kx.begins_with("x:"):
+					var def: Dictionary = GameData.exploit_by_id[kx.substr(2)]
+					enlarge_requested.emit(_tex(def["image"]), def["name"])
 		elif event.button_index in [MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE]:
 			_drag = event.pressed
 		elif event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:

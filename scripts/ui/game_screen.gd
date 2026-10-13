@@ -27,7 +27,14 @@ var top_label: Label
 var prompt: Label
 var chips: HFlowContainer
 var supply_flow: HFlowContainer
-var players_box: VBoxContainer
+var players_box: HBoxContainer
+var left_tabs: TabContainer
+var board_tabs: TabBar
+var supply_hint: Label
+var xview: MapView
+var _auto_tab := false            # la scheda Edifici l'ha aperta il gioco: si richiude da sola
+var _pinned := -1                 # plancia scelta a mano (finché non cambia il giocatore di turno)
+var _last_turn_p := -1
 var exploits_box: VBoxContainer
 var log_label: RichTextLabel
 var ai_timer: Timer
@@ -45,11 +52,17 @@ var _shown_player := 0
 
 var game_specs: Array = []
 var game_opts: Dictionary = {}
+## Partita online (OnlineSession), oppure null in locale.
+var online = null
+var online_lbl: Label
+var _online_done := false
+var _turn := 0                    # cambia a ogni decisione: le attese online vecchie si annullano
 
 
-func setup(specs: Array, seed_value: int, opts: Dictionary = {}) -> void:
+func setup(specs: Array, seed_value: int, opts: Dictionary = {}, online_session = null) -> void:
 	game_specs = specs
 	game_opts = opts
+	online = online_session
 	state = Rules.new_game(specs, seed_value, opts)
 	ai = AIPlayer.new(seed_value)
 
@@ -57,6 +70,15 @@ func setup(specs: Array, seed_value: int, opts: Dictionary = {}) -> void:
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_build_ui()
+	if online != null:
+		_shown_player = online.seat
+	if online != null:
+		online.view = self
+		add_child(online)
+		if online.role != "host":
+			online.heartbeat_loop()
+		if online.catching_up():
+			online_status("Riprendo la partita dal punto in cui era…")
 	_step()
 
 
@@ -102,6 +124,10 @@ func _build_ui() -> void:
 	speed.value = 0.5
 	speed.custom_minimum_size = Vector2(110, 0)
 	top.add_child(speed)
+	online_lbl = Label.new()
+	online_lbl.add_theme_font_size_override("font_size", 15)
+	online_lbl.add_theme_color_override("font_color", Color("#f3d27a"))
+	top.add_child(online_lbl)
 	var menu := Button.new()
 	menu.text = "Menu"
 	menu.pressed.connect(func(): back_to_menu.emit())
@@ -110,74 +136,92 @@ func _build_ui() -> void:
 	var body := HSplitContainer.new()
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	left.add_child(body)
-	map = MapView.new()
-	map.tex_fn = tex
-	map.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	map.size_flags_stretch_ratio = 1.9
-	map.custom_minimum_size = Vector2(420, 400)
-	map.target_clicked.connect(_on_click)
-	body.add_child(map)
 
-	var mid := VBoxContainer.new()
-	mid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	mid.custom_minimum_size = Vector2(430, 0)
-	body.add_child(mid)
-	board = PlayerBoardView.new()
-	board.custom_minimum_size = Vector2(430, 306)
-	mid.resized.connect(func(): board.custom_minimum_size = Vector2(430, maxf(306.0, mid.size.x / 1.404)))
-	board.clicked.connect(_on_click)
-	board.enlarge_requested.connect(func(t, title): show_big(t, title))
-	mid.add_child(board)
-	prompt = Label.new()
-	prompt.add_theme_font_size_override("font_size", 16)
-	prompt.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	prompt.custom_minimum_size = Vector2(200, 0)
-	mid.add_child(prompt)
-	chips = HFlowContainer.new()
-	mid.add_child(chips)
-	var sup_l := Label.new()
-	sup_l.text = "Edifici disponibili"
-	sup_l.modulate = Color(1, 1, 1, 0.7)
-	mid.add_child(sup_l)
+	# Sinistra: schede Mappa / Edifici / Exploit (testi) / Registro / Aiuto.
+	left_tabs = TabContainer.new()
+	left_tabs.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left_tabs.size_flags_stretch_ratio = 1.3
+	left_tabs.custom_minimum_size = Vector2(420, 400)
+	left_tabs.tab_changed.connect(func(_i): _auto_tab = false)
+	body.add_child(left_tabs)
+	map = MapView.new()
+	map.name = "Mappa"
+	map.mode = "board"
+	map.tex_fn = tex
+	map.target_clicked.connect(_on_click)
+	left_tabs.add_child(map)
+	var bpanel := VBoxContainer.new()
+	bpanel.name = "Edifici"
+	left_tabs.add_child(bpanel)
+	supply_hint = Label.new()
+	supply_hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	supply_hint.modulate = Color(1, 1, 1, 0.75)
+	bpanel.add_child(supply_hint)
 	var sscroll := ScrollContainer.new()
 	sscroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	sscroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	mid.add_child(sscroll)
+	bpanel.add_child(sscroll)
 	supply_flow = HFlowContainer.new()
 	supply_flow.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	supply_flow.add_theme_constant_override("h_separation", 10)
+	supply_flow.add_theme_constant_override("v_separation", 10)
 	sscroll.add_child(supply_flow)
-
-	var tabs := TabContainer.new()
-	tabs.custom_minimum_size = Vector2(330, 0)
-	root.add_child(tabs)
-	var pscroll := ScrollContainer.new()
-	pscroll.name = "Giocatori"
-	pscroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	tabs.add_child(pscroll)
-	players_box = VBoxContainer.new()
-	players_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	pscroll.add_child(players_box)
 	var xscroll := ScrollContainer.new()
 	xscroll.name = "Exploit"
 	xscroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	tabs.add_child(xscroll)
+	left_tabs.add_child(xscroll)
 	exploits_box = VBoxContainer.new()
 	exploits_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	xscroll.add_child(exploits_box)
 	log_label = RichTextLabel.new()
 	log_label.name = "Registro"
 	log_label.scroll_following = true
-	log_label.add_theme_font_size_override("normal_font_size", 12)
-	tabs.add_child(log_label)
+	log_label.add_theme_font_size_override("normal_font_size", 13)
+	left_tabs.add_child(log_label)
 	var help := ScrollContainer.new()
 	help.name = "Aiuto"
-	tabs.add_child(help)
+	left_tabs.add_child(help)
 	var aid := TextureRect.new()
 	aid.texture = tex("res://assets/aiuto_giocatore.jpg")
 	aid.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	aid.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-	aid.custom_minimum_size = Vector2(320, 380)
+	aid.custom_minimum_size = Vector2(600, 720)
 	help.add_child(aid)
+
+	# Destra: plance a schede (una per giocatore), comandi, riepilogo avversari, tessere Exploit.
+	var right := VBoxContainer.new()
+	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	right.custom_minimum_size = Vector2(440, 0)
+	right.add_theme_constant_override("separation", 6)
+	body.add_child(right)
+	board_tabs = TabBar.new()
+	board_tabs.clip_tabs = false
+	board_tabs.tab_clicked.connect(func(i): _pin_player(i))
+	right.add_child(board_tabs)
+	board = PlayerBoardView.new()
+	board.custom_minimum_size = Vector2(440, 313)
+	right.resized.connect(_fit_right)
+	board.clicked.connect(_on_click)
+	board.enlarge_requested.connect(func(t, title): show_big(t, title))
+	right.add_child(board)
+	prompt = Label.new()
+	prompt.add_theme_font_size_override("font_size", 16)
+	prompt.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	prompt.custom_minimum_size = Vector2(200, 0)
+	right.add_child(prompt)
+	chips = HFlowContainer.new()
+	right.add_child(chips)
+	players_box = HBoxContainer.new()
+	players_box.add_theme_constant_override("separation", 6)
+	right.add_child(players_box)
+	xview = MapView.new()
+	xview.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	xview.mode = "exploits"
+	xview.tex_fn = tex
+	xview.custom_minimum_size = Vector2(440, 110)
+	xview.target_clicked.connect(_on_click)
+	xview.enlarge_requested.connect(func(t, title): show_big(t, title))
+	right.add_child(xview)
 
 	popup = PopupMenu.new()
 	popup.id_pressed.connect(func(i): if i < _popup_moves.size(): _apply_human(_popup_moves[i]))
@@ -222,28 +266,99 @@ func show_big(t: Texture2D, title: String) -> void:
 # ───────────────────────── ciclo di gioco ─────────────────────────
 
 func _human() -> bool:
+	if online != null:
+		return decision.get("p", -1) >= 0 and decision.p == online.seat
 	return decision.get("p", -1) >= 0 and not state.players[decision.p].ai
 
 
 func _step() -> void:
 	decision = Rules.current_decision(state)
 	sel = {}
-	# Scelte obbligate del giocatore umano: si eseguono da sole.
 	var guard := 0
-	while _human() and decision.moves.size() == 1 and guard < 50:
+	if online != null:
+		# Online le scelte obbligate (una sola mossa) le applica ogni dispositivo da sé, per tutti i
+		# posti; al rientro si rigiocano le mosse già registrate.
+		while decision.type != "game_over" and guard < 100000:
+			if decision.moves.size() == 1:
+				Rules.apply(state, decision.moves[0])
+			elif online.catching_up():
+				Rules.apply(state, online.next_backlog())
+				if not online.catching_up():
+					online_status("")
+			else:
+				break
+			decision = Rules.current_decision(state)
+			guard += 1
+	# Scelte obbligate del giocatore umano: si eseguono da sole.
+	while online == null and _human() and decision.moves.size() == 1 and guard < 50:
 		Rules.apply(state, decision.moves[0])
 		decision = Rules.current_decision(state)
 		guard += 1
-	if decision.get("p", -1) >= 0 and (_human() or not _human_exists()):
-		_shown_player = decision.p
-	elif decision.get("p", -1) >= 0 and state.players[_shown_player].ai:
-		_shown_player = decision.p
+	var dp: int = decision.get("p", -1)
+	if dp != _last_turn_p:
+		_pinned = -1
+		_last_turn_p = dp
+	if _pinned >= 0:
+		_shown_player = _pinned
+	elif dp >= 0 and (_human() or not _human_exists()):
+		_shown_player = dp
+	elif dp >= 0 and not _is_mine(_shown_player):
+		_shown_player = dp
+	# Gli edifici servono solo in Costruzione: la scheda si apre da sola e poi torna la mappa.
+	if _human() and decision.type == "build":
+		if left_tabs.current_tab != 1:
+			left_tabs.current_tab = 1
+			_auto_tab = true
+	elif _auto_tab and left_tabs.current_tab == 1:
+		left_tabs.current_tab = 0
+		_auto_tab = false
 	_refresh_all()
 	if decision.type == "game_over":
 		_show_final()
 		return
+	if online != null:
+		_turn += 1
+		if _human():
+			_watch_forced(_turn)
+		else:
+			_online_remote(_turn)
+		return
 	if not _human() and not pause_btn.button_pressed:
 		ai_timer.start(speed.value)
+
+
+## Plancia "di casa": il proprio posto online, oppure un giocatore umano in locale.
+func _is_mine(p: int) -> bool:
+	if online != null:
+		return p == online.seat
+	return not state.players[p].ai
+
+
+func _pin_player(i: int) -> void:
+	_pinned = i
+	_shown_player = i
+	_refresh_all()
+
+
+func _fit_right() -> void:
+	var w: float = board.get_parent().size.x
+	board.custom_minimum_size = Vector2(440, maxf(313.0, w / 1.404))
+	xview.visible = not state.exploits.is_empty()
+	xview.custom_minimum_size = Vector2(440, w * 0.232)
+
+
+var _dot_cache := {}
+func _dot(col: Color) -> Texture2D:
+	var key := col.to_html()
+	if not _dot_cache.has(key):
+		var img := Image.create(14, 14, false, Image.FORMAT_RGBA8)
+		for y in 14:
+			for x in 14:
+				var d := Vector2(x - 6.5, y - 6.5).length()
+				if d <= 6.5:
+					img.set_pixel(x, y, col if d < 5.3 else col.darkened(0.5))
+		_dot_cache[key] = ImageTexture.create_from_image(img)
+	return _dot_cache[key]
 
 
 func _human_exists() -> bool:
@@ -262,8 +377,74 @@ func _ai_move() -> void:
 
 func _apply_human(m: Dictionary) -> void:
 	sel = {}
+	if online != null:
+		# si pubblica la mossa prima di applicarla; intanto niente altri clic
+		_turn += 1
+		var t := _turn
+		var p: int = decision.p
+		decision = {"type": "wait", "p": -1, "moves": []}
+		_refresh_interaction()
+		m = await online.publish(p, m)
+		if t != _turn or not is_inside_tree() or m.is_empty():
+			return
 	Rules.apply(state, m)
 	_step()
+
+
+# ───────────────────────── online ─────────────────────────
+
+## Decisione di un altro posto: IA (la gioca chi ha creato la stanza) o giocatore lontano.
+func _online_remote(t: int) -> void:
+	var d := decision
+	var p: int = d.p
+	var is_ai: bool = state.players[p].ai
+	if online.role == "host" and is_ai:
+		await get_tree().create_timer(speed.value).timeout
+		while is_inside_tree() and t == _turn and pause_btn.button_pressed:
+			await get_tree().create_timer(0.25).timeout
+		if t != _turn or not is_inside_tree():
+			return
+	var st := state
+	var m: Dictionary = await online.remote_move(p, is_ai, func(): return ai.choose(st, d), String(state.players[p].name))
+	if t != _turn or not is_inside_tree() or m.is_empty():
+		return
+	Rules.apply(state, m)
+	_step()
+
+
+## Mentre si decide al proprio posto, controlla ogni 3 secondi che l'IA non abbia già giocato al nostro
+## posto (succede se chi ha creato la stanza ci ha segnati assenti).
+func _watch_forced(t: int) -> void:
+	var my_n: int = online.n
+	while is_inside_tree() and t == _turn:
+		await get_tree().create_timer(3.0).timeout
+		if t != _turn or not is_inside_tree():
+			return
+		var m: Dictionary = await online.check_forced(my_n)
+		if t != _turn or not is_inside_tree():
+			return
+		if not m.is_empty():
+			_turn += 1
+			online.n = my_n + 1
+			online_status("Eri via: l'IA ha giocato al tuo posto.")
+			Rules.apply(state, m)
+			_step()
+			return
+
+
+func online_status(t: String) -> void:
+	if online_lbl != null:
+		online_lbl.text = t
+
+
+func online_waiting(s: int, is_slow: bool) -> void:
+	if s < 0:
+		online_status("Online · stanza %s" % online.code)
+		return
+	var t := "Online · stanza %s · tocca a %s" % [online.code, state.players[s].name]
+	if is_slow:
+		t += " (non risponde da un po')"
+	online_status(t)
 
 
 # ───────────────────────── interazione ─────────────────────────
@@ -361,6 +542,7 @@ func _refresh_interaction() -> void:
 			elif m["t"] == "token":
 				board_keys.append("tok:%d" % int(m.ti))
 	map.set_highlights(targets)
+	xview.set_highlights(targets)
 	board.set_interaction(board_keys, int(sel.bi) if sel.get("k", "") == "bld" else -1,
 		int(sel.ti) if sel.get("k", "") == "tok" else -1, human and _shown_player == decision.p)
 	_update_prompt(cands)
@@ -380,7 +562,7 @@ func _update_prompt(cands: Array) -> void:
 	var t := ""
 	match decision.type:
 		"build":
-			t = "Costruzione: scegli un edificio qui sotto (livello massimo %d)." % Rules.industry_level(state, p)
+			t = "Costruzione: scegli un edificio nella scheda Edifici (livello massimo %d)." % Rules.industry_level(state, p)
 		"growth":
 			t = "Crescita: quanti Galeoni usare come pagamenti invece che come popolazione?"
 		"salary":
@@ -463,13 +645,17 @@ func _update_supply() -> void:
 			show.append(bid)
 	for rid in state.get("charters", {}):
 		show.append(state.charters[rid])
+	if legal.is_empty():
+		supply_hint.text = "Edifici e Compagnie privilegiate ancora disponibili. Si costruisce all'inizio di ogni round: allora questa scheda si apre da sola. Clic su una tessera per ingrandirla."
+	else:
+		supply_hint.text = "Costruzione: clic sull'edificio da costruire (quelli in grigio non sono ancora alla tua portata)."
 	for bid in show:
 		var bd: Dictionary = GameData.buildings[bid]
 		var b := TextureButton.new()
 		b.texture_normal = tex(bd.get("image", ""))
 		b.ignore_texture_size = true
 		b.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
-		b.custom_minimum_size = Vector2(66, 88) if legal.is_empty() else Vector2(84, 112)
+		b.custom_minimum_size = Vector2(132, 177)
 		if bd.has("charter"):
 			b.tooltip_text = "%s\n%s\n%s\nRichiede 6 di presenza in %s; una per giocatore" % [bd["name"], GameData.icons_text(bd["icons"]), GameData.steps_text(bd["actions"]), GameData.region_name(bd["charter"])]
 		else:
@@ -479,7 +665,7 @@ func _update_supply() -> void:
 			b.pressed.connect(func(): _apply_human(mv))
 			b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		else:
-			b.modulate = Color(0.55, 0.55, 0.55) if not legal.is_empty() else Color(0.85, 0.85, 0.85)
+			b.modulate = Color(0.4, 0.4, 0.42) if not legal.is_empty() else Color(0.9, 0.9, 0.9)
 			b.pressed.connect(func(): show_big(b.texture_normal, bd["name"]))
 		supply_flow.add_child(b)
 
@@ -488,7 +674,18 @@ func _update_supply() -> void:
 
 func _refresh_all() -> void:
 	map.set_state(state)
+	xview.set_state(state)
 	board.set_data(state, _shown_player, tex)
+	if board_tabs.tab_count != state.n:
+		board_tabs.clear_tabs()
+		for p in state.n:
+			board_tabs.add_tab(String(state.players[p].name), _dot(Color(state.players[p].color)))
+		_fit_right()
+	for p in state.n:
+		var pl: Dictionary = state.players[p]
+		var mark := "▶ " if decision.get("p", -1) == p else ""
+		board_tabs.set_tab_title(p, mark + String(pl.name) + (" (IA)" if pl.ai else ""))
+	board_tabs.current_tab = _shown_player
 	var who := ""
 	if decision.has("p") and decision.p >= 0:
 		who = " — tocca a " + state.players[decision.p].name + (" (IA)" if state.players[decision.p].ai else "")
@@ -499,7 +696,8 @@ func _refresh_all() -> void:
 	for c in players_box.get_children():
 		c.queue_free()
 	for p in state.n:
-		players_box.add_child(_player_panel(p))
+		if not _is_mine(p) or not _human_exists():
+			players_box.add_child(_player_panel(p))
 	for c in exploits_box.get_children():
 		c.queue_free()
 	if state.exploits.is_empty():
@@ -526,27 +724,65 @@ func _thumb(t: Texture2D, w: float, h: float, tip: String) -> Control:
 	return r
 
 
+## Riquadro minimo di un avversario: Gloria, livelli, porto, carte. Clic = mostra la sua plancia.
 func _player_panel(p: int) -> Control:
-	# Solo la plancia: colore dalle pedine, livelli sui tracciati, Gloria nell'angolo del porto.
 	var pl: Dictionary = state.players[p]
+	var col := Color(pl.color)
+	var turn: bool = decision.get("p", -1) == p
 	var panel := PanelContainer.new()
+	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color("#1b2833")
-	sb.border_color = Color(pl.color) if decision.get("p", -1) == p else Color(pl.color).darkened(0.5)
-	sb.set_border_width_all(4 if decision.get("p", -1) == p else 1)
-	sb.set_content_margin_all(2)
+	sb.bg_color = Color("#1b2833") if p != _shown_player else Color("#24384a")
+	sb.border_color = col if turn else col.darkened(0.45)
+	sb.set_border_width_all(1)
+	sb.border_width_left = 5
+	if turn:
+		sb.set_border_width_all(3)
+		sb.border_width_left = 6
+	sb.set_corner_radius_all(5)
+	sb.content_margin_left = 8
+	sb.content_margin_right = 6
+	sb.content_margin_top = 4
+	sb.content_margin_bottom = 4
 	panel.add_theme_stylebox_override("panel", sb)
 	if state.phase == "action" and state.passed[p]:
-		panel.modulate = Color(0.75, 0.75, 0.75)
-	var bv := PlayerBoardView.new()
-	bv.custom_minimum_size = Vector2(316, 225)
-	bv.set_data(state, p, tex)
-	bv.enlarge_requested.connect(func(t, title): show_big(t, title))
-	bv.gui_input.connect(func(ev):
-		if ev is InputEventMouseButton and ev.pressed and ev.double_click:
-			_open_board(p))
-	bv.tooltip_text = "%s%s — doppio clic per ingrandire" % [pl.name, " (IA)" if pl.ai else ""]
-	panel.add_child(bv)
+		panel.modulate = Color(0.7, 0.7, 0.7)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 0)
+	panel.add_child(v)
+	var h := HBoxContainer.new()
+	var nm := Label.new()
+	nm.text = String(pl.name) + (" (IA)" if pl.ai else "")
+	nm.add_theme_color_override("font_color", col.lightened(0.25))
+	nm.add_theme_font_size_override("font_size", 14)
+	nm.clip_text = true
+	nm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	h.add_child(nm)
+	var gl := Label.new()
+	gl.text = "%d" % Rules.score(state, p)["total"]
+	gl.tooltip_text = "Gloria attuale"
+	gl.add_theme_color_override("font_color", Color("#f3d27a"))
+	gl.add_theme_font_size_override("font_size", 16)
+	h.add_child(gl)
+	v.add_child(h)
+	var a := Label.new()
+	a.text = "Ind %d · Cul %d · Ric %d · Inf %d" % [Rules.attr(state, p, "industry"), Rules.attr(state, p, "culture"),
+		Rules.attr(state, p, "finance"), Rules.attr(state, p, "influence")]
+	a.add_theme_font_size_override("font_size", 12)
+	v.add_child(a)
+	var b := Label.new()
+	b.text = "Porto %d · riserva %d · carte %d · edifici %d" % [pl.harbor, pl.supply, pl.cards.size(), pl.buildings.size()]
+	b.add_theme_font_size_override("font_size", 12)
+	b.modulate = Color(1, 1, 1, 0.75)
+	v.add_child(b)
+	panel.tooltip_text = "Clic: mostra la plancia di %s · doppio clic: plancia grande" % pl.name
+	panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	panel.gui_input.connect(func(ev):
+		if ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT:
+			if ev.double_click:
+				_open_board(p)
+			else:
+				_pin_player(p))
 	return panel
 
 
@@ -611,7 +847,11 @@ func _show_final() -> void:
 	for c in chips.get_children():
 		c.queue_free()
 	_chip("Punteggi finali", func(): _final_layer.visible = true)
-	_chip("Rivincita", func(): rematch_requested.emit(), "Nuova partita con gli stessi giocatori e le stesse opzioni")
+	if online == null:
+		_chip("Rivincita", func(): rematch_requested.emit(), "Nuova partita con gli stessi giocatori e le stesse opzioni")
+	elif not _online_done:
+		_online_done = true
+		online.finish()
 	_chip("Menu iniziale", func(): back_to_menu.emit())
 
 
@@ -714,9 +954,10 @@ func _build_final() -> Control:
 	btns.alignment = BoxContainer.ALIGNMENT_CENTER
 	btns.add_theme_constant_override("separation", 14)
 	box.add_child(btns)
-	var specs: Array = [["Guarda il tabellone", func(): layer.visible = false],
-		["Rivincita", func(): rematch_requested.emit()],
-		["Menu iniziale", func(): back_to_menu.emit()]]
+	var specs: Array = [["Guarda il tabellone", func(): layer.visible = false]]
+	if online == null:
+		specs.append(["Rivincita", func(): rematch_requested.emit()])
+	specs.append(["Menu iniziale", func(): back_to_menu.emit()])
 	for spec in specs:
 		var b := Button.new()
 		b.text = spec[0]

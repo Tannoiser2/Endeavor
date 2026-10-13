@@ -63,5 +63,11 @@ func _process(_d: float) -> bool:
 func _shot(which: int) -> void:
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(OS.get_cmdline_user_args()[0].path_join("shot_xtok%d.png" % which))
+	var gs = main._current
+	if "left_tabs" in gs:
+		gs.left_tabs.current_tab = 0
+		await RenderingServer.frame_post_draw
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png(OS.get_cmdline_user_args()[0].path_join("shot_xtok%d_map.png" % which))
 	print("ok")
 	quit()

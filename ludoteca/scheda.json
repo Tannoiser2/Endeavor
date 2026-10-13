@@ -1,8 +1,8 @@
 {
   "titolo": "Endeavor: Age of Sail",
   "sottotitolo": "con gli Exploit",
-  "descrizione": "Esplorazione e commercio delle potenze marittime, contro l'IA o in hotseat.",
-  "online": false,
+  "descrizione": "Esplorazione e commercio delle potenze marittime, con tutti gli Exploit e le Compagnie privilegiate, contro l'IA, in hotseat o online.",
+  "online": true,
   "sezione": "conversione",
   "ordine": 40
 }
