@@ -303,8 +303,8 @@ BUILDINGS = [
     ("treasury", "Tesoreria", 5, 1, {"glory": 2}, ["payment", "payment"], "DT3zJaX", {}),
     ("city_hall", "Municipio", 5, 1, {}, ["occupy|draw"], "cGcgkkb", {"special": "city_hall"}),
     ("parliament", "Parlamento", 5, 1, {"influence": 2}, ["payment"], "8luMQ7u", {}),
-    ("exchange", "Borsa", 5, 1, {"finance": 2}, ["payment"], "eEyHNpF", {"verify": "immagine assente: azione ipotizzata"}),
-    ("memorial", "Memoriale", 5, 1, {}, ["ship|attack"], "LHBXv9t", {"special": "memorial", "verify": "immagine assente: azione ipotizzata dai conteggi dello script"}),
+    ("exchange", "Borsa", 5, 1, {"finance": 2}, ["payment"], "eEyHNpF", {}),
+    ("memorial", "Memoriale", 5, 1, {}, ["ship|attack"], "LHBXv9t", {"special": "memorial"}),
 ]
 
 

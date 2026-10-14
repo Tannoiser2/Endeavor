@@ -580,6 +580,9 @@ func _update_prompt(cands: Array) -> void:
 	match decision.type:
 		"build":
 			t = "Costruzione: scegli un edificio nella scheda Edifici (livello massimo %d)." % Rules.industry_level(state, p)
+			var ch: Array = decision.moves.filter(func(m): return GameData.buildings[m.b].has("charter"))
+			if not ch.is_empty():
+				t += " Puoi prendere anche %s." % " o ".join(ch.map(func(m): return "la " + String(GameData.buildings[m.b]["name"])))
 		"growth":
 			t = "Crescita: quanti Galeoni usare come pagamenti invece che come popolazione?"
 		"salary":
@@ -662,10 +665,19 @@ func _update_supply() -> void:
 			show.append(bid)
 	for rid in state.get("charters", {}):
 		show.append(state.charters[rid])
+	# Giocatore di riferimento per le Compagnie: chi sta costruendo, altrimenti la plancia in vista.
+	var who: int = decision.p if _human() else _shown_player
+	var has_charter: bool = String(state.players[who].get("charter", "")) != ""
+	var ch_txt := ""
+	if not state.get("charters", {}).is_empty():
+		if has_charter:
+			ch_txt = "\nCompagnie privilegiate: %s ne ha già una (se ne può prendere una sola)." % state.players[who].name
+		else:
+			ch_txt = "\nCompagnie privilegiate: si prendono in Costruzione al posto di un edificio, con almeno 6 presenze nella loro regione (dischi sul tracciato, nelle città e flotte, nel mare aperto). Sotto ogni Compagnia c'è la presenza attuale di %s." % state.players[who].name
 	if legal.is_empty():
-		supply_hint.text = "Edifici e Compagnie privilegiate ancora disponibili. Si costruisce all'inizio di ogni round: allora questa scheda si apre da sola. Clic su una tessera per ingrandirla."
+		supply_hint.text = "Edifici e Compagnie ancora disponibili. Si costruisce all'inizio di ogni round: allora questa scheda si apre da sola. Clic su una tessera per ingrandirla." + ch_txt
 	else:
-		supply_hint.text = "Costruzione: clic sull'edificio da costruire (quelli in grigio non sono ancora alla tua portata)."
+		supply_hint.text = "Costruzione: clic sull'edificio da costruire (quelli in grigio non sono ancora alla tua portata)." + ch_txt
 	for bid in show:
 		var bd: Dictionary = GameData.buildings[bid]
 		var b := TextureButton.new()
@@ -684,7 +696,26 @@ func _update_supply() -> void:
 		else:
 			b.modulate = Color(0.4, 0.4, 0.42) if not legal.is_empty() else Color(0.9, 0.9, 0.9)
 			b.pressed.connect(func(): show_big(b.texture_normal, bd["name"]))
-		supply_flow.add_child(b)
+		if not bd.has("charter"):
+			supply_flow.add_child(b)
+			continue
+		# Compagnia: sotto, la presenza del giocatore nella sua regione (verde quando basta).
+		var box := VBoxContainer.new()
+		box.add_theme_constant_override("separation", 2)
+		box.add_child(b)
+		var need := int(bd.get("presence", 6))
+		var have := Rules.presence(state, who, String(bd["charter"]))
+		var l := Label.new()
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		l.add_theme_font_size_override("font_size", 14)
+		if has_charter:
+			l.text = "ne hai già una"
+			l.modulate = Color(1, 1, 1, 0.6)
+		else:
+			l.text = "presenza %d / %d" % [have, need]
+			l.add_theme_color_override("font_color", Color("#8fe08f") if have >= need else Color("#f0b070"))
+		box.add_child(l)
+		supply_flow.add_child(box)
 
 
 # ───────────────────────── pannelli informativi ─────────────────────────
@@ -791,7 +822,8 @@ func _player_panel(p: int) -> Control:
 	a.clip_text = true
 	v.add_child(a)
 	var b := Label.new()
-	b.text = "Porto %d · ris. %d · carte %d · edif. %d" % [pl.harbor, pl.supply, pl.cards.size(), pl.buildings.size()]
+	b.text = "Porto %d · ris. %d · carte %d · edif. %d%s" % [pl.harbor, pl.supply, pl.cards.size(), pl.buildings.size(),
+		" · Compagnia" if String(pl.get("charter", "")) != "" else ""]
 	b.clip_text = true
 	b.add_theme_font_size_override("font_size", 12)
 	b.modulate = Color(1, 1, 1, 0.75)

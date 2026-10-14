@@ -131,7 +131,8 @@ Entrambi controllano che i 35 dischi di ogni giocatore siano sempre tutti al lor
 
 ## Da verificare sulla copia fisica
 Mancano nella cache del mod e sono quindi ipotesi segnate con `verify` nei JSON:
-- **Borsa** e **Memoriale** (livello 5): immagine assente; azioni ricavate dai conteggi dello script.
+- **Memoriale**: il disco perso in un attacco diventa un token Attributo; il gioco sceglie quello del
+  tracciato più basso (la tessera non dice se la scelta è libera).
 - **Simbolo "scala"** su Mercato e Cartografo: non interpretato.
 - **Transito di Venere**: la ramificazione dopo Tahiti (Nuova Zelanda / Australia) è interpretata dall'immagine.
 - Non implementata: variante a 2 giocatori "Silent Fleet" (il foglio della variante non è nella cache).

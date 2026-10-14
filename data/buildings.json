@@ -245,7 +245,7 @@
    "actions": [
     "payment"
    ],
-   "verify": "immagine assente: azione ipotizzata"
+   "image": "res://assets/buildings/exchange.png"
   },
   {
    "id": "memorial",
@@ -257,7 +257,7 @@
     "ship|attack"
    ],
    "special": "memorial",
-   "verify": "immagine assente: azione ipotizzata dai conteggi dello script"
+   "image": "res://assets/buildings/memorial.png"
   },
   {
    "id": "charter_north_america",
